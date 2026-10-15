@@ -1,0 +1,150 @@
+/* trdr theme: dark, flat, structured. Colors carry meaning; no shadows,
+   gradients, glow or blur anywhere. See the plan's "UI/UX direction". */
+:root {
+  --bg: #0b0e11;
+  --surface: #11151a;
+  --surface-2: #161b21;
+  --divider: #1e242c;
+  --text: #e6e8eb;
+  --muted: #8a929c;
+  --orange: #ff8a1f;
+  --yellow: #ffc93c;
+  --green: #22c55e;
+  --red: #ef4444;
+
+  --radius: 4px;
+  --font-ui: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-num: "JetBrains Mono", "Cascadia Mono", Consolas, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select { font: inherit; color: inherit; }
+a { color: var(--orange); }
+
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.up { color: var(--green); }
+.down { color: var(--red); }
+.warn { color: var(--yellow); }
+.accent { color: var(--orange); }
+
+/* Cards: 1px border whose color says what the card holds. */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--orange);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+.card.good { border-color: var(--green); }
+.card.bad { border-color: var(--red); }
+.card.attention { border-color: var(--yellow); }
+.card.plain { border-color: var(--divider); }
+.card-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 10px 12px; border-bottom: 1px solid var(--divider);
+}
+.card-title { color: var(--orange); font-weight: 600; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+.card-body { padding: 12px; }
+
+/* Buttons and inputs */
+.btn {
+  background: transparent; border: 1px solid var(--divider); border-radius: var(--radius);
+  padding: 6px 12px; cursor: pointer; white-space: nowrap;
+}
+.btn:hover { border-color: var(--orange); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn.primary { border-color: var(--orange); color: var(--orange); font-weight: 600; }
+.btn.buy { border-color: var(--green); color: var(--green); font-weight: 600; }
+.btn.sell { border-color: var(--red); color: var(--red); font-weight: 600; }
+.btn.buy.active { background: rgba(34, 197, 94, 0.14); }
+.btn.sell.active { background: rgba(239, 68, 68, 0.14); }
+.btn.small { padding: 2px 8px; font-size: 12px; }
+.btn.danger:hover { border-color: var(--red); color: var(--red); }
+
+.input, select.input {
+  background: var(--bg); border: 1px solid var(--divider); border-radius: var(--radius);
+  padding: 6px 8px; width: 100%; outline: none;
+}
+.input:focus { border-color: var(--orange); }
+label.field { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 12px; }
+
+/* Tabs */
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--divider); }
+.tab {
+  background: none; border: none; border-bottom: 2px solid transparent; padding: 8px 12px;
+  color: var(--muted); cursor: pointer; margin-bottom: -1px;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--text); font-weight: 600; border-bottom-color: var(--orange); }
+.tab .count { color: var(--yellow); margin-left: 4px; }
+
+/* Tables */
+table.grid { width: 100%; border-collapse: collapse; }
+table.grid th {
+  text-align: left; font-weight: 500; color: var(--muted); font-size: 12px;
+  padding: 6px 10px; border-bottom: 1px solid var(--divider); white-space: nowrap;
+}
+table.grid td { padding: 6px 10px; border-bottom: 1px solid var(--divider); white-space: nowrap; }
+table.grid td.r, table.grid th.r { text-align: right; }
+table.grid tr.clickable { cursor: pointer; }
+table.grid tr.clickable:hover td { background: var(--surface-2); }
+table.grid tr.selected td { background: var(--surface-2); }
+table.grid tr.selected td:first-child { border-left: 2px solid var(--orange); }
+
+.badge {
+  display: inline-block; border: 1px solid currentColor; border-radius: var(--radius);
+  padding: 0 6px; font-size: 11px; font-weight: 600; line-height: 18px;
+}
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+.empty { color: var(--muted); padding: 24px; text-align: center; }
+.error-text { color: var(--red); font-size: 12px; }
+
+/* Shell */
+.shell {
+  display: grid; height: 100%;
+  grid-template-columns: 216px 1fr;
+  grid-template-rows: 48px 1fr 28px;
+  grid-template-areas: "top top" "nav main" "status status";
+}
+.topbar {
+  grid-area: top; display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  border-bottom: 1px solid var(--divider); background: var(--surface);
+}
+.logo { color: var(--orange); font-weight: 700; font-size: 18px; letter-spacing: 0.02em; width: 184px; }
+.sidebar { grid-area: nav; border-right: 1px solid var(--divider); padding: 12px 8px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius);
+  border: 1px solid transparent; color: var(--text); text-decoration: none; cursor: pointer; background: none; text-align: left;
+}
+.nav-item:hover { border-color: var(--divider); }
+.nav-item.active { border-color: var(--orange); color: var(--orange); font-weight: 600; }
+.nav-item .soon { margin-left: auto; color: var(--muted); font-size: 11px; }
+.nav-spacer { flex: 1; }
+.main { grid-area: main; overflow: auto; min-width: 0; }
+.statusbar {
+  grid-area: status; display: flex; align-items: center; gap: 20px; padding: 0 16px;
+  border-top: 1px solid var(--divider); background: var(--surface); color: var(--muted); font-size: 12px;
+}
+.page { padding: 16px; display: flex; flex-direction: column; gap: 16px; min-height: 100%; }
+.page-title { color: var(--orange); font-size: 18px; font-weight: 600; margin: 0; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.kpi .label { color: var(--muted); font-size: 12px; }
+.kpi .value { font-size: 20px; margin-top: 4px; }
+.kpi .sub { font-size: 12px; margin-top: 2px; }
+
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 56px 1fr; }
+  .nav-item .label, .nav-item .soon, .logo-full { display: none; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
